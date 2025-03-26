@@ -1,0 +1,3 @@
+displayName = Mod Wiki Helper
+author = YuH
+version = 1.0
