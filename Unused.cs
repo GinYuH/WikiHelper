@@ -31,7 +31,6 @@ namespace WikiHelper
             List<string> rogue = new List<string> { };
             List<string> typeless = new List<string> { };
 
-            Mod CalVal = CurMod;
             foreach (var item in ContentSamples.ItemsByType)
             {
                 Item i = item.Value;
@@ -121,7 +120,6 @@ namespace WikiHelper
         /// <returns></returns>
         public static List<string> GenerateEquipsTemplate()
         {
-            Mod CalVal = CurMod;
             List<string> itemsToAdd = new List<string>();
             List<string> boditemsToAdd = new List<string>();
             List<string> legitemsToAdd = new List<string>();
@@ -134,7 +132,7 @@ namespace WikiHelper
             for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
-                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CalVal)
+                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CurMod)
                 {
                     if (item.headSlot > 0)
                         itemsToAdd.Add(ContentSamples.ItemsByType[i].Name);
@@ -144,7 +142,7 @@ namespace WikiHelper
             for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
-                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CalVal)
+                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CurMod)
                 {
                     if (item.bodySlot > 0)
                         boditemsToAdd.Add(ContentSamples.ItemsByType[i].Name);
@@ -154,7 +152,7 @@ namespace WikiHelper
             for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
-                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CalVal)
+                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CurMod)
                 {
                     if (item.legSlot > 0)
                         legitemsToAdd.Add(ContentSamples.ItemsByType[i].Name);
@@ -164,7 +162,7 @@ namespace WikiHelper
             for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
-                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CalVal)
+                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CurMod)
                 {
                     if (item.balloonSlot > 0)
                         balitemsToAdd.Add(ContentSamples.ItemsByType[i].Name);
@@ -174,7 +172,7 @@ namespace WikiHelper
             for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
-                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CalVal)
+                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CurMod)
                 {
                     if (item.neckSlot > 0)
                         scarfitemsToAdd.Add(ContentSamples.ItemsByType[i].Name);
@@ -184,7 +182,7 @@ namespace WikiHelper
             for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
-                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CalVal)
+                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CurMod)
                 {
                     if (item.shieldSlot > 0)
                         shielditemsToAdd.Add(ContentSamples.ItemsByType[i].Name);
@@ -194,7 +192,7 @@ namespace WikiHelper
             for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
-                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CalVal)
+                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CurMod)
                 {
                     if (item.accessory)
                     {
@@ -206,7 +204,7 @@ namespace WikiHelper
             for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
-                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CalVal)
+                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CurMod)
                 {
                     if (item.accessory && item.headSlot + item.bodySlot + item.legSlot + item.backSlot + item.shieldSlot + item.neckSlot + item.wingSlot + item.balloonSlot + item.wingSlot <= 0)
                     {
@@ -308,12 +306,11 @@ namespace WikiHelper
         public static string GenerateConsumablesPage()
         {
             string ret = "";
-            Mod Calval = CurMod;
             List<Item> items = new List<Item>();
             for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
-                if (item?.ModItem?.Mod != Calval)
+                if (item?.ModItem?.Mod != CurMod)
                 {
                     continue;
                 }
@@ -362,12 +359,11 @@ namespace WikiHelper
         public static string GenerateVanityStandalone()
         {
             string ret = "";
-            Mod Calval = CurMod;
             List<Item> items = new List<Item>();
             for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
-                if (item?.ModItem?.Mod != Calval)
+                if (item?.ModItem?.Mod != CurMod)
                 {
                     continue;
                 }
@@ -419,12 +415,11 @@ namespace WikiHelper
         public static string GenerateVanitySets()
         {
             string ret = "";
-            Mod Calval = CurMod;
             List<Item> items = new List<Item>();
             for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
-                if (item?.ModItem?.Mod != Calval)
+                if (item?.ModItem?.Mod != CurMod)
                 {
                     continue;
                 }
@@ -476,12 +471,11 @@ namespace WikiHelper
         public static string GenerateTransformations()
         {
             string ret = "";
-            Mod Calval = CurMod;
             List<Item> items = new List<Item>();
             for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
-                if (item?.ModItem?.Mod != Calval)
+                if (item?.ModItem?.Mod != CurMod)
                 {
                     continue;
                 }
@@ -530,14 +524,13 @@ namespace WikiHelper
         /// <returns></returns>
         public static List<string> GenerateTilesTemplate()
         {
-            Mod CalVal = CurMod;
             List<string> blocksToAdd = new List<string>();
             List<string> wallsToAdd = new List<string>();
             List<string> furnitureToAdd = new List<string>();
             for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
-                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CalVal)
+                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CurMod)
                 {
                     if (item.createTile > TileID.Dirt && !Main.tileFrameImportant[item.createTile])
                         blocksToAdd.Add(ContentSamples.ItemsByType[i].Name);
@@ -547,7 +540,7 @@ namespace WikiHelper
             for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
-                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CalVal)
+                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CurMod)
                 {
                     if (item.createWall > 0)
                         wallsToAdd.Add(ContentSamples.ItemsByType[i].Name);
@@ -557,7 +550,7 @@ namespace WikiHelper
             for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
-                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CalVal)
+                if (ContentSamples.ItemsByType[i]?.ModItem?.Mod == CurMod)
                 {
                     if (item.createTile > TileID.Dirt && Main.tileFrameImportant[item.createTile])
                         furnitureToAdd.Add(ContentSamples.ItemsByType[i].Name);
@@ -580,12 +573,11 @@ namespace WikiHelper
         public static string GenerateVanityAccessories()
         {
             string ret = "";
-            Mod Calval = CurMod;
             List<Item> items = new List<Item>();
             for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
-                if (item?.ModItem?.Mod != Calval)
+                if (item?.ModItem?.Mod != CurMod)
                 {
                     continue;
                 }

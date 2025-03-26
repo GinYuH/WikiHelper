@@ -38,7 +38,7 @@ namespace WikiHelper
 
 
         /// <summary>
-        /// Creates an item page for the Calamity's Vanities wiki
+        /// Creates an item page
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>

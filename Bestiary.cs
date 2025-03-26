@@ -53,7 +53,7 @@ namespace WikiHelper
         }
 
         /// <summary>
-        /// Dumps out the Calamity Bestiary page. Several entries are hardcoded and require maintenance 
+        /// Dumps out a Bestiary page.
         /// </summary>
         public static void BestiaryPage()
         {

@@ -67,12 +67,11 @@ namespace WikiHelper
         /// <returns></returns>
         public static string GenerateWingStats()
         {
-            Mod Calval = CurMod;
             List<Item> items = new List<Item>();
             for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
-                if (item?.ModItem?.Mod != Calval)
+                if (item?.ModItem?.Mod != CurMod)
                 {
                     continue;
                 }
@@ -110,12 +109,11 @@ namespace WikiHelper
         public static string GenerateBlocks()
         {
             string ret = "";
-            Mod Calval = CurMod;
             List<Item> items = new List<Item>();
             for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
-                if (item?.ModItem?.Mod != Calval)
+                if (item?.ModItem?.Mod != CurMod)
                 {
                     continue;
                 }
@@ -148,12 +146,11 @@ namespace WikiHelper
         public static string GenerateWalls()
         {
             string ret = "";
-            Mod Calval = CurMod;
             List<Item> items = new List<Item>();
             for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
             {
                 Item item = ContentSamples.ItemsByType[i];
-                if (item?.ModItem?.Mod != Calval)
+                if (item?.ModItem?.Mod != CurMod)
                 {
                     continue;
                 }
