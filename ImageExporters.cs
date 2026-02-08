@@ -47,12 +47,13 @@ namespace WikiHelper
                     continue;
                 if (Main.tileFrameImportant[item.Value.createTile]) continue;
 
+                if (TextureAssets.Tile[item.Value.createTile] == null) continue;
+
                 Texture2D baseTexture = TextureAssets.Tile[item.Value.createTile].Value;
                 int width = 48;
                 int height = 48;
 
                 Texture2D exporter = new Texture2D(Main.instance.GraphicsDevice, width, height);
-
                 Color[] baseColors = new Color[baseTexture.Width * baseTexture.Height];
                 baseTexture.GetData(baseColors);
 
@@ -63,6 +64,11 @@ namespace WikiHelper
                 Color[,] baseArrayColors = GetColorsFromTexture(baseTexture);
                 Color[,] finalArray = new Color[48, 48];
 
+                if (baseArrayColors.GetLength(0) <= 54 || baseArrayColors.GetLength(1) <= 72)
+                {
+                    Main.NewText("Texture for " + item.Value.Name + " is too small for export, skipping.");
+                    continue;
+                }
                 for (int i = 0; i < 16; i++)
                 {
                     for (int j = 0; j < 16; j++)
@@ -132,6 +138,7 @@ namespace WikiHelper
                 if (item.Value.ModItem.Mod != CurMod) continue;
                 if (item.Value.createWall <= 0)
                     continue;
+                if (TextureAssets.Wall[item.Value.createWall] == null) continue;
 
                 Texture2D baseTexture = TextureAssets.Wall[item.Value.createWall].Value;
                 int width = 64;
@@ -192,8 +199,11 @@ namespace WikiHelper
                 if (item.Value.createTile <= TileID.Dirt)
                     continue;
                 if (!Main.tileFrameImportant[item.Value.createTile]) continue;
+                if (TextureAssets.Tile[item.Value.createTile] == null) continue;
 
                 TileObjectData tileData = TileObjectData.GetTileData(item.Value.createTile, 0);
+
+                if (tileData == null) continue;
 
                 Texture2D baseTexture = TextureAssets.Tile[item.Value.createTile].Value;
 

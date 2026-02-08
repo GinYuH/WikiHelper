@@ -136,7 +136,7 @@ namespace WikiHelper
             }
             else
             {
-                itemtype = item.material ? "Crafting Material" : "Consumable";
+                itemtype = item.material ? "Crafting material" : "Consumable";
                 itemtype2 = item.material ? "crafting material" : "consumable";
                 templateType = "Consumables";
                 if (!item.material)
@@ -154,6 +154,7 @@ namespace WikiHelper
             string mountInfo = MountInfo(item, mountName);
             string addWrapper = dropstuff != "" ? "\n{{infobox wrapper" + "\n|" : "";
             string n = dropstuff != "" ? "" : "\n";
+            string typetwo = item.material && itemtype != "Crafting material" ? "\n| type2 = Crafting material" : "";
             string consumable = item.consumable ? "\n| consumable = yes" : "";
             string placeable = item.createTile > TileID.Dirt || item.createWall > 0 ? "\n| placeable = yes" : "";
             string auto = item.autoReuse ? "\n| auto = yes" : "";
@@ -161,13 +162,15 @@ namespace WikiHelper
             string finalType = linkType ? GetLinkAccountingForMod(weaponClass + itemtype2) : (weaponClass + itemtype2);
             string tier = item.rare <= ItemRarityID.LightRed ? " [[Pre-Hardmode]]" : " [[Hardmode]]";
             string masterTemp = standaloneMods.Contains(CurMod) ? "\n{{Master Template " + templateType : "\n{{" + CurMod.DisplayName + "/Master Template " + templateType;
+            string lang = standaloneMods.Contains(CurMod) ? "\n{{Language info|en=" + item.Name + "}}" : "";
             return
                 top +
                 addWrapper + n + "{{item infobox"
                 + "\n| type = " + itemtype
+                + typetwo
                 + "\n| stack = " + item.maxStack
                 + "\n| research = " + item.ResearchUnlockCount
-                + "\n| tooltip = " + GetTooltip(item)
+                + GetTooltip(item)
                 + "\n| rare = " + GetRarity(item)
                 + (item.damage > 0 ? ("\n| damage = " + item.damage) : "")
                 + (item.damage > 0 ? ("\n| knockback = " + item.knockBack) : "")
@@ -193,7 +196,7 @@ namespace WikiHelper
                 "\n| show-main = yes" +
                 ShowStrings(item) +
                 "\n}}" +
-                "\n";
+                lang;
         }
         #endregion
 
@@ -394,16 +397,35 @@ namespace WikiHelper
         public static string Crafting(Item item)
         {
             bool craftable = IsCraftable(item.type);
-            bool crafty = item.material || craftable;
+            bool shimmerIngredient = false;
+            bool shimmerProduct = false;
+
+            for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
+            {
+                if (ItemID.Sets.ShimmerTransformToItem[item.type] != 0)
+                {
+                    shimmerIngredient = true;
+                    break;
+                }
+            }
+            for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
+            {
+                if (ItemID.Sets.ShimmerTransformToItem[i] == item.type)
+                {
+                    shimmerProduct = true;
+                    break;
+                }
+            }
+            bool crafty = item.material || craftable || shimmerIngredient || shimmerProduct;
             string recipestuff = crafty ? "\n== Crafting ==" : "";
-            if (craftable)
+            if (craftable || shimmerProduct)
             {
                 recipestuff +=
                 "\n=== Recipes ===" +
                 "\n{{recipes|result=" + GetTaggedItemName(item) + "}}" +
                 "\n";
             }
-            if (item.material)
+            if (item.material || shimmerIngredient)
             {
                 recipestuff +=
                 "\n=== Used in ===" +
@@ -450,7 +472,7 @@ namespace WikiHelper
             if (item.useStyle < ItemUseStyleID.Swing)
                 return "";
 
-            int trueUse = item.useStyle == ItemUseStyleID.Swing ? item.useTime - 1 : item.useTime;
+            int trueUse = (item.createTile > 0 || item.createWall > 0) ? item.useAnimation : item.useStyle == ItemUseStyleID.Swing ? item.useTime : item.useTime;
             return "\n| use = " + trueUse;
         }
 
@@ -499,9 +521,8 @@ namespace WikiHelper
             }
             string ret = "";
             FieldInfo colorArray = typeof(MapHelper).GetField("colorLookup", BindingFlags.Static | BindingFlags.NonPublic);
-
             Color[] cArray = (Color[])colorArray.GetValue(null);
-            Color c = cArray[item.createTile];
+            Color c = cArray[MapHelper.TileToLookup(item.createTile, 0)];
             ret += "\n| color = " + ColorToHex(c);
             TileObjectData data = TileObjectData.GetTileData(item.createTile, item.placeStyle);
             if (data == null)

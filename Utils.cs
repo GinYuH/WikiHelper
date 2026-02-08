@@ -57,6 +57,11 @@ namespace WikiHelper
                     return true;
                 }
             }
+            for (int i = 0; i < ContentSamples.ItemsByType.Count; i++)
+            {
+                if (ItemID.Sets.ShimmerTransformToItem[i] == type)
+                    return true;
+            }
             return false;
         }
 
@@ -202,7 +207,9 @@ namespace WikiHelper
 
         public static string GetTooltip(Item item)
         {
-            string ret = "";
+            if (item.ToolTip.Lines <= 1)
+                return "";
+            string ret = "\n| tooltip = ";
             for (int i = 0; i < item.ToolTip.Lines; i++)
             {
                 ret += item.ToolTip.GetLine(i);
